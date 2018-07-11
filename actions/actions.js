@@ -4,7 +4,7 @@ export const addItemAction = (value, bool) => (
  payload: {
    value,
    is_add: bool,
-   type: 'ADD_ITEM',
+   type: 'add',
  }
 })
 );
@@ -15,7 +15,7 @@ export const editItemAction = (value, bool) => (
     payload: {
       value,
       is_add: bool,
-      type: 'EDIT_ITEM'
+      type: 'edit'
     }
   })
 );
@@ -25,7 +25,7 @@ export const deleteAction = (index) => (
     type: 'DELETE_ITEM',
     payload: {
       index,
-      type: 'DELETE_ITEM'
+      type: 'delete'
     }
   })
 );
@@ -36,7 +36,7 @@ export const changeToEditAction = (value, index) => (
     payload: {
       value,
       index,
-      type: 'CHANGE_TO_EDIT'
+      type: 'changing_to_edit'
     }
   })
 );
