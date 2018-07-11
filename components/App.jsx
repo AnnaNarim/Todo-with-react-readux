@@ -28,16 +28,16 @@ class App extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		const payload  = nextProps.todoReducer;
 		console.log('componentWillReceiveProps', payload)
-		if(payload.type === 'ADD_ITEM'){
+		if(payload.type === 'add'){
 			this.addItem(payload.value, payload.is_add)
 		}
-		else if(payload.type === 'EDIT_ITEM') {
+		else if(payload.type === 'edit') {
 			this.editItem(payload.value, payload.is_add)
 		}
-		else if(payload.type === 'DELETE_ITEM'){
+		else if(payload.type === 'delete'){
 			this.deleteItem(payload.index)
 		}
-		else if(payload.type === 'CHANGE_TO_EDIT'){
+		else if(payload.type === 'changing_to_edit'){
 			this.edit(payload.value, payload.index)
 		}
 	}
