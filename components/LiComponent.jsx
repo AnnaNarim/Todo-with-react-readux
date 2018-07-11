@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {deleteAction, changeToEditAction} from './actions/actions.js';
+import {deleteAction, changeToEditAction} from '../actions/actions.js';
 
 class LiComponent extends React.Component {
   render() {

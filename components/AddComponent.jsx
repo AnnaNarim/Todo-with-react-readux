@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { addItemAction, editItemAction } from './actions/actions.js'
+import { addItemAction, editItemAction } from '../actions/actions.js'
 
 class AddComponent extends React.Component {
   constructor(props) {

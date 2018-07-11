@@ -26,18 +26,19 @@ class App extends React.Component {
 		console.log('didmount')
 	}*/
 	componentWillReceiveProps(nextProps) {
-		console.log('componentWillReceiveProps', nextProps)
-		if(nextProps.todoReducer.type === 'ADD_ITEM'){
-			this.addItem(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.is_add)
+		const payload  = nextProps.todoReducer;
+		console.log('componentWillReceiveProps', payload)
+		if(payload.type === 'ADD_ITEM'){
+			this.addItem(payload.value, payload.is_add)
 		}
-		else if(nextProps.todoReducer.type === 'EDIT_ITEM') {
-			this.editItem(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.is_add)
+		else if(payload.type === 'EDIT_ITEM') {
+			this.editItem(payload.value, payload.is_add)
 		}
-		else if(nextProps.todoReducer.type === 'DELETE_ITEM'){
-			this.deleteItem(nextProps.todoReducer.payload.index)
+		else if(payload.type === 'DELETE_ITEM'){
+			this.deleteItem(payload.index)
 		}
-		else if(nextProps.todoReducer.type === 'CHANGE_TO_EDIT'){
-			this.edit(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.index)
+		else if(payload.type === 'CHANGE_TO_EDIT'){
+			this.edit(payload.value, payload.index)
 		}
 	}
 	/*componentWillUnmount() {
