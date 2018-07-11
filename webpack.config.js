@@ -1,6 +1,6 @@
 var config = {
    entry: './main.js',
-   mode: 'production',
+   mode: 'development',
    output: {
       path:'/',
       filename: 'index.js',

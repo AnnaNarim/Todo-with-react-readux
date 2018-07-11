@@ -1,57 +1,87 @@
 import React from 'react';
+import AddComponent from './AddComponent.jsx'
+import UlTodos from './UlTodos.jsx'
+import LiComponent from './LiComponent.jsx'
+import { connect } from 'react-redux';
 
 class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			todos: [],
+			todos: ['asd', 'qefds', 'asdfgh', 'rfgsd'],
 			value: '',
-			is_add: true,
-			curr_index: -1
+			isAdd: true,
+			index: -1,
+		}
+		this.addItem = this.addItem.bind(this);
+		this.deleteItem = this.deleteItem.bind(this);
+		this.editItem = this.editItem.bind(this);
+		this.edit = this.edit.bind(this);
+		console.log('constructor')
+	}
+	/*componentWillMount() {
+		console.log('willmount')
+	}
+	componentDidMount() {
+		console.log('didmount')
+	}*/
+	componentWillReceiveProps(nextProps) {
+		console.log('componentWillReceiveProps', nextProps)
+		if(nextProps.todoReducer.type === 'ADD_ITEM'){
+			this.addItem(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.is_add)
+		}
+		else if(nextProps.todoReducer.type === 'EDIT_ITEM') {
+			this.editItem(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.is_add)
+		}
+		else if(nextProps.todoReducer.type === 'DELETE_ITEM'){
+			this.deleteItem(nextProps.todoReducer.payload.index)
+		}
+		else if(nextProps.todoReducer.type === 'CHANGE_TO_EDIT'){
+			this.edit(nextProps.todoReducer.payload.value, nextProps.todoReducer.payload.index)
 		}
 	}
-	add() {
-		const list = this.state.todos;
-		list.push(this.state.value);
-		this.setState({ todos: list, value: '' });
+	/*componentWillUnmount() {
+		console.log('WIllunmount')
 	}
-	inputChange(event) {
-		this.setState({value: event.target.value})
+	componentDidUnmount() {
+		console.log('didunmount')
+	}*/
+	addItem(item, is_add) {
+		const list = this.state.todos.slice(0);
+		list.push(item);
+		this.setState({ todos: list, isAdd: is_add});
 	}
-	edit(index) {
-		this.setState({is_add: false, curr_index: index})
-		this.setState({value: this.state.todos[index]})
+	deleteItem(index){
+		const list = this.state.todos.slice(0);
+    delete list[index];
+    list.splice(index, 1);
+    this.setState({ todos:list });
 	}
-	update() {
-		const list = this.state.todos;
-		list[this.state.curr_index] = this.state.value;
-		this.setState({ todos: list, value: '', curr_index: -1, is_add: true});
+	edit(value, index){
+		this.setState({value: value, isAdd: false, index: index})
 	}
-	deleteTodo(id) {
-		const list = this.state.todos
-		delete list[id];
-		list.splice(id, 1);
-		this.setState({todos:list})
+	editItem(value, is_add){
+		const index = this.state.index;
+		const list = this.state.todos.slice(0);
+		list[index] = value;
+		this.setState({ todos: list, isAdd: is_add, value: ''});
 	}
  	render() {
-   	const {value, is_add} = this.state;
-   		const lis = this.state.todos.map((item, index)=>{
-   			return (
-	   				<li id={index}>
-							{item}
-							<button onClick={() => this.edit(index)}> Edit </button>
-							<button onClick={() => this.deleteTodo(index)}> Delete </button>
-						</li>
-   			);
-   		})
+			const { todos, value, isAdd } = this.state
     	return (
-			<div>
-				<input type='text' id='addInput' value={value} onChange={this.inputChange.bind(this)} />
-				<button onClick={is_add ? () => this.add() :() => this.update() } > { is_add ? 'Add' : 'Update'} </button>
-				<br />
-				<ul>{lis}</ul>
-			</div>
+				<div>
+					<AddComponent todos={todos} value={value} isAdd={isAdd}/>
+					<UlTodos todos={todos} >
+						{todos.map((item, index) => {
+							return <LiComponent key={index} item={item} index={index}/>
+						})}
+					</UlTodos>
+				</div>
 	    );
  	}
 }
-export default App;
+function mapStateToProps(state){
+  return state;
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import App from './App.jsx';
+import reducers from './reducer';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const store = createStore(reducers);
 
-// https://www.tutorialspoint.com/reactjs/reactjs_environment_setup.htm
-// https://www.youtube.com/watch?v=3HMtarQAt3A
-// https://codepen.io/gaearon/pen/VmmPgp?editors=0010
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
