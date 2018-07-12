@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import List from '@material-ui/core/List';
 
 class UlTodos extends React.Component {
   constructor(props){
     super();
   }
   render(){
-    return <ul> {this.props.children} </ul>;
+    return <List> {this.props.children} </List>;
   }
 }
 

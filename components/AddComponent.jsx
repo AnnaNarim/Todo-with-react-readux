@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { addItemAction, editItemAction } from '../actions/actions.js'
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
 
 class AddComponent extends React.Component {
   constructor(props) {
@@ -30,11 +32,13 @@ class AddComponent extends React.Component {
   render() {
     return (
       <div>
-        <input type='text' onChange={this.inputChange} value={this.state.value}  />
-        <button onClick={ () => this.state.isAdd ?
+        <Input onChange={this.inputChange}
+        value={this.state.value}
+        />
+        <Button variant="contained" color="secondary" onClick={ () => this.state.isAdd ?
                           this.add(this.state.value) : this.edit(this.state.value) }>
                           { this.state.isAdd ? 'Add' : 'Update' }
-        </button>
+        </Button>
       </div>
     );
   }
